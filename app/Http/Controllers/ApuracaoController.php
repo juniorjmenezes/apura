@@ -169,6 +169,7 @@ class ApuracaoController extends Controller
         
         // Inicializa variáveis
         $total_votos_apurados = 0; // Total de votos apurados
+        $total_votos_validos = 0; // Total de votos válidos
         $total_votos_invalidos = 0; // Total de votos inválidos
         $total_aptos = 0; // Total de eleitores aptos
 
@@ -186,21 +187,28 @@ class ApuracaoController extends Controller
             return $candidato;
         });
 
-        // Calcula total de eleitores aptos e votos inválidos
         foreach ($secoes as $secao) {
-            $total_votos_validos = $apuracao->sum(function ($candidato) use ($secao) {
-                return $candidato->apuracoes()->where('secao_id', $secao->id)->sum('votos');
+            // Soma total de votos válidos para a seção atual
+            $votos_validos_secao = $secao->apuracoes->sum(function ($apuracao) {
+                return $apuracao->votos;
             });
-
+        
             // Votos inválidos = Eleitores aptos - Votos válidos
-            $votos_invalidos = $secao->aptos - $total_votos_validos;
-            $total_votos_invalidos += max(0, $votos_invalidos); // Garante que o número não seja negativo
-            $total_aptos += $secao->aptos; // Totaliza os eleitores aptos
+            $votos_invalidos_secao = $secao->aptos - $votos_validos_secao;
+        
+            // Garante que os votos inválidos não sejam negativos
+            $total_votos_invalidos += max(0, $votos_invalidos_secao);
+            
+            // Acumula o total de votos válidos
+            $total_votos_validos += $votos_validos_secao;
+        
+            // Totaliza os eleitores aptos
+            $total_aptos += $secao->aptos;
         }
-
-        // Calcula Percentual de Votos Inválidos
-        $percentual_invalidos = $total_aptos > 0 ? 
-            ($total_votos_invalidos / $total_aptos) * 100 : 0;
+        
+        // Calcula Percentual de Votos Inválidos e Válidos
+        $percentual_invalidos = $total_aptos > 0 ? ($total_votos_invalidos / $total_aptos) * 100 : 0;
+        $percentual_validos = $total_aptos > 0 ? ($total_votos_validos / $total_aptos) * 100 : 0;
 
         // Calcula Percentual sobre Apuração
         $apuracao = $apuracao->map(function ($candidato) use ($total_aptos) {
@@ -240,7 +248,7 @@ class ApuracaoController extends Controller
         }
 
         // Retorna para a View
-        return view('painel', compact('candidatos', 'apuracao', 'total_votos_invalidos', 'percentual_invalidos', 'total_apuradas', 'percentual_apuradas', 'ultima_atualizacao', 'apuracoes_finalizadas', 'vencedor'));
+        return view('painel', compact('candidatos', 'apuracao', 'total_votos_invalidos', 'percentual_invalidos', 'total_votos_validos', 'percentual_validos', 'total_apuradas', 'percentual_apuradas', 'ultima_atualizacao', 'apuracoes_finalizadas', 'vencedor'));
     }
 
     public function checarAtualizacoes()

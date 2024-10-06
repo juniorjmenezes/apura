@@ -57,7 +57,7 @@
         @endforeach
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
@@ -79,7 +79,29 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="fs-4 text-dark">Votos Válidos</div>
+                        <div class="d-flex flex-column align-items-end lh-1">
+                            <div class="fs-1">{{ number_format($percentual_validos, 2) }}%</div>
+                            <div class="fs-4">{{ $total_votos_validos }} {{ $total_votos_validos != 1 ? 'votos' : 'voto'}}</div>
+                        </div>
+                    </div>
+                    <div class="progress mt-3">
+                        <div class="progress-bar bg-primary" 
+                            role="progressbar" 
+                            style="width: {{ $percentual_validos }}%;" 
+                            aria-valuenow="{{ $percentual_validos }}" 
+                            aria-valuemin="0" 
+                            aria-valuemax="100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">

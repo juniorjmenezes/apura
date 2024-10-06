@@ -17,8 +17,8 @@ use App\Http\Controllers\ApuracaoController;
 */
 
 Route::get('/', function () {
-    return view('welcome')->middleware('auth');
-});
+    return view('welcome');
+})->middleware('auth');
 
 // Seções
 Route::get('/secoes', [SecaoController::class, 'index'])->name('secoes.index')->middleware('auth');
