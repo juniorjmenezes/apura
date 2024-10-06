@@ -57,7 +57,7 @@
         });
 
         // Adiciona a coluna 'ações' com um botão para salvar as alterações
-        headerHtml += '<th><button id="salvarVotos" class="btn btn-success btn-sm">Salvar Votos</button></th>';
+        headerHtml += '<th><button id="salvarVotos" class="btn btn-info btn-sm text-uppercase">Alterar</button></th>';
         // Adiciona a configuração da coluna 'acoes' no array de colunas
         columns.push({ data: 'editar', name: 'editar', orderable: false, searchable: false });
 

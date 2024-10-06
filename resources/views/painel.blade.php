@@ -39,7 +39,7 @@
                             </div>
                             <div class="d-flex flex-column align-items-end lh-1">
                                 <div class="fs-1">{{ number_format($candidato->percentual, 2) }}%</div>
-                                <div class="fs-4">{{ $candidato->total_votos }} votos</div>
+                                <div class="fs-4">{{ $candidato->total_votos }} {{ $candidato->total_votos != 1 ? 'votos' : 'voto'}}</div>
                             </div>
                         </div>
                         <div class="progress mt-3">
@@ -64,7 +64,7 @@
                         <div class="fs-4 text-dark">Brancos/Nulos/Abstenções</div>
                         <div class="d-flex flex-column align-items-end lh-1">
                             <div class="fs-1">{{ number_format($percentual_invalidos, 2) }}%</div>
-                            <div class="fs-4">{{ $total_votos_invalidos }} votos</div>
+                            <div class="fs-4">{{ $total_votos_invalidos }} {{ $total_votos_invalidos != 1 ? 'votos' : 'voto'}}</div>
                         </div>
                     </div>
                     <div class="progress mt-3">
@@ -86,7 +86,7 @@
                         <div class="fs-4 text-dark">Urnas Apuradas</div>
                         <div class="d-flex flex-column align-items-end lh-1">
                             <div class="fs-1">{{ number_format($percentual_apuradas, 2) }}%</div>
-                            <div class="fs-4">{{ $total_apuradas }} urnas</div>
+                            <div class="fs-4">{{ $total_apuradas }} {{ $total_apuradas != 1 ? 'urnas' : 'urna'}}</div>
                         </div>
                     </div>
                     <div class="progress mt-3">
