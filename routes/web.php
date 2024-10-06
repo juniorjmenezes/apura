@@ -16,10 +16,6 @@ use App\Http\Controllers\ApuracaoController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth');
-
 // Desativa a rota de registro
 Auth::routes(['register' => false]);
 
