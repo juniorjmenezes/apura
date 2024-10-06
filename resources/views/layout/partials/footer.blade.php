@@ -3,16 +3,8 @@
         <div class="row text-muted">
             <div class="col-6 text-start">
                 <p class="mb-0">
-                    <a class="text-muted" href="#" target="_blank"><strong>AdminKit Demo</strong></a> &copy;
+                    <span class="text-muted"><strong>Desenvolvido por Júnior Menezes</strong></span> &copy<span>2024</span>
                 </p>
-            </div>
-            <div class="col-6 text-end">
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a class="text-muted" href="#">Support</a></li>
-                    <li class="list-inline-item"><a class="text-muted" href="#">Help Center</a></li>
-                    <li class="list-inline-item"><a class="text-muted" href="#">Privacy</a></li>
-                    <li class="list-inline-item"><a class="text-muted" href="#">Terms</a></li>
-                </ul>
             </div>
         </div>
     </div>

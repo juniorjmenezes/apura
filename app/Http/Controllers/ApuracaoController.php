@@ -80,7 +80,7 @@ class ApuracaoController extends Controller
     public function getData()
     {
         // Obter todas as seções com apurações e candidatos
-        $secoes = Secao::with(['apuracoes.candidato'])->get(['id', 'secao', 'local']);
+        $secoes = Secao::has('apuracoes')->with(['apuracoes.candidato'])->get(['id', 'secao', 'local']);
     
         // Obter a lista de candidatos
         $candidatos = Candidato::all();

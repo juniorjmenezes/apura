@@ -72,8 +72,24 @@
             "serverSide": true,
             "ajax": "{{ route('apuradas.data') }}",
             "columns": columns,
-            'language': {
-                // ... (mesma configuração de linguagem)
+            "language": {
+                'sEmptyTable': '<span class="text-gray-500 text-uppercase fw-semibold d-block pt-6 pb-2">Nenhum Registro encontrado.</span>',
+                'sInfo': '<span class="text-gray-800 text-special fw-normal">Mostrando _START_ até _END_ de _TOTAL_ Registro(s)</span>',
+                'sInfoEmpty': '<span class="text-gray-800 text-special fw-normal">Mostrando 0 até 0 de 0 Registro(s)</span>',
+                'sInfoFiltered': '<span class="text-gray-800 text-special fw-normal mb-0">filtrado de _MAX_ Registro(s)</span>',
+                'sInfoPostFix': '',
+                'sInfoThousands': '',
+                'sInfoThousands': '',
+                'sLoadingRecords': '',
+                'sZeroRecords': '<div class="d-flex items-align-center py-5"><i class="ki-duotone ki-information-5 fs-1 me-3 text-danger"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i><span class="text-gray-700 text-special fw-normal">Não há resultados para os filtros utilizados, refaça sua busca!</span></div>',
+                'sSearch': 'Pesquisar',
+                'oPaginate': {
+                    'sNext': 'Próximo',
+                    'sPrevious': 'Anterior',
+                    'sFirst': 'Primeiro',
+                    'sLast': 'Último'
+                },
+                "lengthMenu": 'Mostrar _MENU_ Registros p/ Página',
             },
             initComplete: function() {
                 feather.replace();
