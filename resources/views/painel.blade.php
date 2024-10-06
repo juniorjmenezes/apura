@@ -5,6 +5,14 @@
 @endsection
 
 @section('content')
+    <div class="row">
+        <div class="col-auto d-none d-sm-block">
+            <h3><strong>Eleições</strong> 2024</h3>
+        </div>
+        <div class="col-auto ms-auto text-end">
+            <h3><strong>Votos para</strong> Prefeito</h3>
+        </div>
+    </div>
     <div class="d-flex align-items-center justify-content-between mb-4">
         <div class="last-updated" id="last-updated">Última Atualização: {{ $ultima_atualizacao->format('d/m/Y H:i:s') }}</div>
         <div class="countdown" id="countdown"></div>

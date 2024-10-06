@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\User; // Certifique-se de que o modelo User está importado
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
+
 
 class UserSeeder extends Seeder
 {
