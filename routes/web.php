@@ -20,6 +20,9 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('auth');
 
+// Desativa a rota de registro
+Auth::routes(['register' => false]);
+
 // Seções
 Route::get('/secoes', [SecaoController::class, 'index'])->name('secoes.index')->middleware('auth');
 Route::get('/secoes/data', [SecaoController::class, 'getData'])->name('secoes.data')->middleware('auth');
