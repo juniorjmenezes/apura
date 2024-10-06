@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
 use App\Models\Secao;
 use App\Models\Candidato;
 use App\Models\Apuracao;
-use Illuminate\Http\Request;
 
 class ApuracaoController extends Controller
 {
@@ -64,6 +66,100 @@ class ApuracaoController extends Controller
     
         // Redireciona de volta com uma mensagem de sucesso
         return redirect()->back()->with('success', 'Votos registrados com sucesso!');
+    }
+
+    public function apuradas()
+    {
+        // Recupera Candidatos
+        $candidatos = Candidato::all();
+
+        // Retonar para a view
+        return view('apuradas', compact('candidatos'));
+    }
+
+    public function getData()
+    {
+        // Obter todas as seções com apurações e candidatos
+        $secoes = Secao::with(['apuracoes.candidato'])->get(['id', 'secao', 'local']);
+    
+        // Obter a lista de candidatos
+        $candidatos = Candidato::all();
+    
+        // Estrutura inicial para os dados
+        $data = $secoes->map(function ($secao) use ($candidatos) {       
+            $row = [
+                'secao' => $secao->secao . ' - ' . $secao->local, // Nome da seção
+                'secao_id' => $secao->id, // Adiciona o secao_id,
+                'editar' => '' // Adiciona botão de editar
+            ];
+        
+            foreach ($candidatos as $candidato) {
+                // Busca a apuração para o candidato atual
+                $apuracao = $secao->apuracoes->firstWhere('candidato_id', $candidato->id);
+                // Verifica se a apuração foi encontrada e se 'votos' é um inteiro
+                $votos = $apuracao ? (int) $apuracao->votos : 0; // Votos ou 0 se não houver
+                
+                // Cria um campo de entrada para edição
+                $row['candidatos.' . $candidato->id] = $votos; // Armazena apenas os votos
+            }
+        
+            return $row;
+        });
+        
+    
+        return DataTables::of($data)
+            ->rawColumns(array_merge(
+                array_map(function ($candidato) {
+                    return 'candidatos.' . $candidato;
+                }, $candidatos->pluck('id')->toArray()),
+                ['editar']
+            ))
+            ->make(true);
+    }
+    
+    public function atualizarVotos(Request $request)
+    {
+        // Valida os dados do request
+        $validatedData = $request->validate([
+            'votos' => 'required|array',
+            'votos.*.candidato_id' => 'required|exists:candidatos,id',
+            'votos.*.secao_id' => 'required|exists:secoes,id',
+            'votos.*.votos' => 'required|integer|min:0',
+        ]);
+    
+        // Cria um array para armazenar o total de votos por seção
+        $totalVotosPorSecao = [];
+    
+        // Loop pelos votos validados
+        foreach ($validatedData['votos'] as $voto) {
+            // Armazena a soma dos votos por seção
+            if (!isset($totalVotosPorSecao[$voto['secao_id']])) {
+                $totalVotosPorSecao[$voto['secao_id']] = 0;
+            }
+            $totalVotosPorSecao[$voto['secao_id']] += $voto['votos'];
+    
+            // Atualiza ou cria a apuração
+            Apuracao::updateOrCreate(
+                [
+                    'candidato_id' => $voto['candidato_id'],
+                    'secao_id' => $voto['secao_id'],
+                ],
+                [
+                    'votos' => $voto['votos'],
+                ]
+            );
+        }
+    
+        // Verifica se o total de votos ultrapassa a quantidade de eleitores aptos para cada seção
+        foreach ($totalVotosPorSecao as $secaoId => $totalVotos) {
+            $secao = Secao::findOrFail($secaoId);
+    
+            if ($totalVotos > $secao->aptos) {
+                return response()->json(['error' => 'Ultrapassa os ' . $secao->aptos . ' Aptos'], 422);
+            }
+        }
+    
+        return response()->json(['success' => 'Votos atualizados com sucesso!']);
     }    
 
     public function painel()

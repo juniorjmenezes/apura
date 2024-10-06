@@ -14,7 +14,7 @@ class Candidato extends Model
         'partido',
         'numero',
     ];
-
+    
     public function apuracoes()
     {
         return $this->hasMany(Apuracao::class);

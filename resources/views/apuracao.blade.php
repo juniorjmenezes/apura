@@ -1,7 +1,7 @@
 @extends('layout._theme')
 
 @section('styles')
-    <style>.paginate_button, .ellipsis { margin-left: 10px !important}</style>
+
 @endsection
 
 @section('content')

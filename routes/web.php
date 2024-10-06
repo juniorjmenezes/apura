@@ -31,5 +31,8 @@ Route::get('/candidatos/data', [CandidatoController::class, 'getData'])->name('c
 // Votação
 Route::get('/apuracao', [ApuracaoController::class, 'index'])->name('apuracao.index');
 Route::post('/registrar-votos', [ApuracaoController::class, 'registrarVotos'])->name('apuracao.registrar.votos');
+Route::get('/apuradas', [ApuracaoController::class, 'apuradas'])->name('apuradas.index');
+Route::post('/atualizar-votos', [ApuracaoController::class, 'atualizarVotos'])->name('apuracao.atualizar.votos');
+Route::get('/apuradas/data', [ApuracaoController::class, 'getData'])->name('apuradas.data');
 Route::get('/painel', [ApuracaoController::class, 'painel'])->name('painel.index');
 Route::get('/checar-atualizacoes', [ApuracaoController::class, 'checarAtualizacoes'])->name('painel.checar.atualizacoes');

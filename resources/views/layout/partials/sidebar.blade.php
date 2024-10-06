@@ -6,9 +6,9 @@
 
         <ul class="sidebar-nav">
             <li class="sidebar-header">Pages</li>
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('/dashboard') }}">
-                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+            <li class="sidebar-item {{ (Request::route()->getName() == 'painel.index') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ url('/painel') }}">
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Painel</span>
                 </a>
             </li>
             <li class="sidebar-item {{ (Request::route()->getName() == 'apuracao.index') ? 'active' : '' }}">

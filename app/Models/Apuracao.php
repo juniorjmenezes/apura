@@ -24,4 +24,9 @@ class Apuracao extends Model
     {
         return $this->belongsTo(Secao::class);
     }
+
+    public function apuracaoCandidatos()
+    {
+        return $this->hasMany(Apuracao::class, 'secao_id', 'secao_id');
+    }
 }

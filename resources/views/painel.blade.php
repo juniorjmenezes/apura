@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="d-flex align-items-center justify-content-between mb-4">
-        <div class="last-updated" id="last-updated">Última Atualização: N/A</div>
+        <div class="last-updated" id="last-updated">Última Atualização: {{ $ultima_atualizacao->format('d/m/Y H:i:s') }}</div>
         <div class="countdown" id="countdown"></div>
     </div>
     <div class="row">
