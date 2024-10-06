@@ -224,7 +224,7 @@ class ApuracaoController extends Controller
         if($total_votos_apurados > 0) {
             $ultima_atualizacao = Apuracao::latest()->first()->updated_at;
         } else {
-            $ultima_atualizacao = '2024-10-06 17:00:00';
+            $ultima_atualizacao = Carbom::now();
         }
 
         // Ordena os candidatos por total de votos em ordem decrescente
