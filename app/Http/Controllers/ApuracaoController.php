@@ -221,11 +221,12 @@ class ApuracaoController extends Controller
         $percentual_apuradas = $total_secoes > 0 ? ($total_apuradas / $total_secoes) * 100 : 0;
 
         // Recupera Última Atualização
-        if($apuracao->isNotEmpty()) {
+        if($total_votos_apurados == 0) {
             $ultima_atualizacao = Apuracao::latest()->first()->updated_at;
         } else {
             $ultima_atualizacao = '2024-10-06 17:00:00';
         }
+
         // Ordena os candidatos por total de votos em ordem decrescente
         $apuracao = $apuracao->sortByDesc('total_votos')->values();
 
