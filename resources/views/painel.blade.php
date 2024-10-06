@@ -32,7 +32,7 @@
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center justify-content-start">
                                 <img src="{{ asset($candidato->foto) }}" alt="{{ $candidato->nome }}" class="img-fluid rounded-circle" width="64" height="64">
-                                <div class="ms-4">
+                                <div class="ms-2">
                                     <div class="d-flex lh-1">
                                         <div class="fs-4 text-dark">{{ $candidato->nome }}</div>
                                         @if($apuracoes_finalizadas && $candidato->id === $vencedor->id)
@@ -66,7 +66,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
-                        <div class="fs-4 text-dark">Brancos/Nulos/Abstenções</div>
+                        <div class="ms-0">
+                            <div class="d-flex lh-1">
+                                <div class="fs-4 text-dark">Votos Inválidos</div>
+                            </div>
+                            <div class="text-muted">Brancos/Nulos/Abstenções</div>
+                        </div>
                         <div class="d-flex flex-column align-items-end lh-1">
                             <div class="fs-1">{{ number_format($percentual_invalidos, 2) }}%</div>
                             <div class="fs-4">{{ $total_votos_invalidos }} {{ $total_votos_invalidos != 1 ? 'votos' : 'voto'}}</div>
